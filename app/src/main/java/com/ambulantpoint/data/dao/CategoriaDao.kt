@@ -135,7 +135,7 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
     }
 
     // =========================================================
-    // SOFT DELETE (decisión D3)
+    // SOFT DELETE 
     // Nunca elimina físicamente — solo marca activo=false.
     // La eliminación física solo ocurre si el producto no tiene
     // historial, y esa decisión la toma CatalogService, no este DAO.

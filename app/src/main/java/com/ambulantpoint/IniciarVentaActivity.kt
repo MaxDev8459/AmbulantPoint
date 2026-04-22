@@ -13,6 +13,7 @@ class IniciarVentaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityIniciarVentaBinding
 
+    /** Inicializa la vista y configura la toolbar con navegación de retroceso. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityIniciarVentaBinding.inflate(layoutInflater)

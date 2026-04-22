@@ -13,6 +13,7 @@ class ReporteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReporteBinding
 
+    /** Inicializa la vista y configura la toolbar con navegación de retroceso. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReporteBinding.inflate(layoutInflater)

@@ -41,6 +41,10 @@ class ProductoFormActivity : AppCompatActivity() {
         const val EXTRA_PRODUCTO_ID = "extra_producto_id"
     }
 
+    /**
+     * Inicializa el binding, detecta el modo (creación/edición) desde el Intent,
+     * configura el servicio, toolbar, campos y botones.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductoFormBinding.inflate(layoutInflater)
@@ -60,6 +64,7 @@ class ProductoFormActivity : AppCompatActivity() {
     // INICIALIZACIÓN
     // ─────────────────────────────────────────────────────────
 
+    /** Crea el [CatalogService] con sus DAOs usando el singleton [DatabaseHelper]. */
     private fun inicializarServicio() {
         val dbHelper = DatabaseHelper.getInstance(this)
         catalogService = CatalogService(
@@ -68,6 +73,7 @@ class ProductoFormActivity : AppCompatActivity() {
         )
     }
 
+    /** Configura la toolbar con retroceso y título dinámico según el modo activo. */
     private fun configurarToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -113,6 +119,12 @@ class ProductoFormActivity : AppCompatActivity() {
     // SPINNER DE CATEGORÍAS
     // ─────────────────────────────────────────────────────────
 
+    /**
+     * Carga las categorías activas en el spinner.
+     * Si el adapter ya existe, actualiza sus datos en lugar de recrearlo.
+     * @param seleccionarId ID de la categoría a seleccionar automáticamente tras la carga.
+     *                      Si es null, se selecciona la categoría actual del producto (modo edición).
+     */
     private fun cargarCategorias(seleccionarId: Int? = null) {
         val cargadas = catalogService.getCategoriasActivas()
         categorias.clear()
@@ -159,6 +171,7 @@ class ProductoFormActivity : AppCompatActivity() {
     // BOTONES
     // ─────────────────────────────────────────────────────────
 
+    /** Asigna listeners al botón "Nueva Categoría" y al botón "Guardar". */
     private fun configurarBotones() {
         binding.btnNuevaCategoria.setOnClickListener { mostrarDialogNuevaCategoria() }
         binding.btnGuardar.setOnClickListener { intentarGuardar() }
@@ -168,6 +181,7 @@ class ProductoFormActivity : AppCompatActivity() {
     // ALERTDIALOG — NUEVA CATEGORÍA
     // ─────────────────────────────────────────────────────────
 
+    /** Muestra un AlertDialog con un campo de texto para ingresar el nombre de la nueva categoría. */
     private fun mostrarDialogNuevaCategoria() {
         val editText = TextInputEditText(this).apply {
             hint = "Nombre de la categoría"
@@ -187,6 +201,10 @@ class ProductoFormActivity : AppCompatActivity() {
             .show()
     }
 
+    /**
+     * Crea la categoría a través de [CatalogService] y recarga el spinner
+     * seleccionando automáticamente la nueva categoría.
+     */
     private fun crearCategoria(nombre: String) {
         try {
             val nuevoId = catalogService.createCategoria(nombre).toInt()
@@ -203,6 +221,10 @@ class ProductoFormActivity : AppCompatActivity() {
     // GUARDAR — CREACIÓN O EDICIÓN
     // ─────────────────────────────────────────────────────────
 
+    /**
+     * Lee y valida los campos del formulario, luego invoca create o update según el modo.
+     * Retorna RESULT_OK a [GestionProductosActivity] al finalizar correctamente.
+     */
     private fun intentarGuardar() {
         limpiarErrores()
 
@@ -264,6 +286,7 @@ class ProductoFormActivity : AppCompatActivity() {
     // MANEJO DE ERRORES POR CAMPO
     // ─────────────────────────────────────────────────────────
 
+    /** Mapea el mensaje de [ValidationException] al campo de error correspondiente. */
     private fun manejarExcepcionValidacion(mensaje: String) {
         when {
             mensaje.contains("nombre", ignoreCase = true)  -> mostrarErrorNombre(mensaje)
@@ -273,6 +296,7 @@ class ProductoFormActivity : AppCompatActivity() {
         }
     }
 
+    /** Mapea el mensaje de [BusinessRuleException] al campo de error correspondiente. */
     private fun manejarExcepcionNegocio(mensaje: String) {
         when {
             mensaje.contains("nombre",    ignoreCase = true) -> mostrarErrorNombre(mensaje)
@@ -281,12 +305,18 @@ class ProductoFormActivity : AppCompatActivity() {
         }
     }
 
+    /** Muestra el error bajo el campo Nombre y le da foco al campo. */
     private fun mostrarErrorNombre(m: String)    { binding.tvErrorNombre.text    = m; binding.tvErrorNombre.visibility    = View.VISIBLE; binding.etNombre.requestFocus() }
+    /** Muestra el error bajo el spinner de Categoría. */
     private fun mostrarErrorCategoria(m: String) { binding.tvErrorCategoria.text = m; binding.tvErrorCategoria.visibility = View.VISIBLE }
+    /** Muestra el error bajo el campo Precio y le da foco al campo. */
     private fun mostrarErrorPrecio(m: String)    { binding.tvErrorPrecio.text    = m; binding.tvErrorPrecio.visibility    = View.VISIBLE; binding.etPrecioVenta.requestFocus() }
+    /** Muestra el error bajo el campo Stock y le da foco al campo. */
     private fun mostrarErrorStock(m: String)     { binding.tvErrorStock.text     = m; binding.tvErrorStock.visibility     = View.VISIBLE; binding.etStockInicial.requestFocus() }
+    /** Oculta el texto de error del spinner de Categoría. */
     private fun ocultarErrorCategoria()          { binding.tvErrorCategoria.visibility = View.GONE }
 
+    /** Oculta todos los textos de error del formulario antes de una nueva validación. */
     private fun limpiarErrores() {
         binding.tvErrorNombre.visibility    = View.GONE
         binding.tvErrorCategoria.visibility = View.GONE

@@ -12,8 +12,6 @@ import com.ambulantpoint.ui.catalogo.GestionProductosActivity
  * Responsabilidad exclusiva: navegar a cada módulo al tocar
  * el botón correspondiente del grid. No contiene lógica de negocio.
  *
- * Referencia: Prompt Maestro Sección 6.1 y 6.2
- *
  * NOTA: No se usa ViewBinding complejo ni ViewModel en esta fase
  * (instrucción Prompt Maestro Sección 8 punto 9 — solo findViewById
  * y lógica directa en Activity). Sin embargo, se usa el binding

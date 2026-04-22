@@ -34,7 +34,6 @@ class BusinessRuleException(message: String) : Exception(message)
  *
  * Decisiones aplicadas:
  * - D3: Soft-delete scope = solo Categoria y Producto
- * - D10: costoBase ELIMINADO de todas las operaciones
  * - RF-18: Gestión de Catálogo de Productos
  */
 class CatalogService(

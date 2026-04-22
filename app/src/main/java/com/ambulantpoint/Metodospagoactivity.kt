@@ -9,8 +9,6 @@ import com.ambulantpoint.databinding.ActivityMetodosPagoBinding
 /**
  * MetodosPagoActivity — Configurar métodos de pago activos.
  *
- * Referencia: Prompt Maestro Sección 6.2
- *
  * REGLAS DE NEGOCIO (autocontenidas, sin dependencia de M2/M3/M4):
  * 1. Siempre debe haber al menos 1 método activo.
  * 2. Al intentar DESACTIVAR cualquier método → AlertDialog de confirmación.

@@ -7,7 +7,6 @@ import com.ambulantpoint.databinding.ActivityNotificacionesBinding
 /**
  * NotificacionesActivity — Esqueleto navegable.
  * La lógica de negocio se implementa en la fase de desarrollo del módulo correspondiente.
- * Referencia: Prompt Maestro Sección 8 punto 7.
  */
 class NotificacionesActivity : AppCompatActivity() {
 

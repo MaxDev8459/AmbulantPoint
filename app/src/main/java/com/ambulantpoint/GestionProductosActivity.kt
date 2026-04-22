@@ -47,6 +47,7 @@ class GestionProductosActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) cargarProductos()
     }
 
+    /** Inicializa el binding, el servicio, el RecyclerView, el FAB y carga la lista inicial. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGestionProductosBinding.inflate(layoutInflater)
@@ -63,6 +64,7 @@ class GestionProductosActivity : AppCompatActivity() {
     // INICIALIZACIÓN
     // ─────────────────────────────────────────────────────────
 
+    /** Crea el [CatalogService] con sus DAOs usando el singleton [DatabaseHelper]. */
     private fun inicializarServicio() {
         val dbHelper = DatabaseHelper.getInstance(this)
         catalogService = CatalogService(
@@ -71,12 +73,14 @@ class GestionProductosActivity : AppCompatActivity() {
         )
     }
 
+    /** Configura la toolbar con botón de retroceso hacia MainActivity. */
     private fun configurarToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
+    /** Inicializa el [ProductoAdapter] y lo asigna al RecyclerView con LinearLayoutManager. */
     private fun configurarRecycler() {
         adapter = ProductoAdapter(
             onEditar   = { producto -> abrirEdicion(producto) },
@@ -88,6 +92,7 @@ class GestionProductosActivity : AppCompatActivity() {
         }
     }
 
+    /** Configura el FAB para abrir [ProductoFormActivity] en modo creación (sin ID). */
     private fun configurarFab() {
         binding.fabNuevoProducto.setOnClickListener {
             formLauncher.launch(
@@ -120,6 +125,7 @@ class GestionProductosActivity : AppCompatActivity() {
     // ACCIONES
     // ─────────────────────────────────────────────────────────
 
+    /** Lanza [ProductoFormActivity] en modo edición pasando el ID del producto seleccionado. */
     private fun abrirEdicion(producto: Producto) {
         val intent = Intent(this, ProductoFormActivity::class.java).apply {
             putExtra(ProductoFormActivity.EXTRA_PRODUCTO_ID, producto.id)
@@ -168,26 +174,31 @@ class GestionProductosActivity : AppCompatActivity() {
 
         private val items = mutableListOf<Producto>()
 
+        /** Reemplaza la lista completa y notifica al RecyclerView para refrescar. */
         fun actualizar(nuevos: List<Producto>) {
             items.clear()
             items.addAll(nuevos)
             notifyDataSetChanged()
         }
 
+        /** Infla el layout de cada ítem y retorna su ViewHolder. */
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val b = ItemProductoBinding.inflate(layoutInflater, parent, false)
             return ViewHolder(b)
         }
 
+        /** Delega el enlace de datos al [ViewHolder] correspondiente a la posición. */
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.bind(items[position])
         }
 
+        /** Retorna el número total de productos en la lista. */
         override fun getItemCount() = items.size
 
         inner class ViewHolder(private val b: ItemProductoBinding) :
             RecyclerView.ViewHolder(b.root) {
 
+            /** Enlaza los datos del producto a las vistas del ítem, incluyendo color de stock. */
             fun bind(producto: Producto) {
                 b.tvNombreProducto.text = producto.nombre
                 b.tvPrecioProducto.text = "$%.2f".format(producto.precioVenta)

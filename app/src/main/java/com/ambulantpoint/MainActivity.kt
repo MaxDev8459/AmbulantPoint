@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    /** Inicializa el binding, la toolbar y los botones de navegación. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     // TOOLBAR
     // ─────────────────────────────────────────────────────────
 
+    /** Configura la toolbar sin botón de retroceso (es la pantalla raíz). */
     private fun configurarToolbar() {
         setSupportActionBar(binding.toolbar)
         // En MainActivity no mostramos botón "atrás"
@@ -56,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     // Cada botón lanza un Intent explícito a su Activity destino.
     // ─────────────────────────────────────────────────────────
 
+    /** Asigna listeners a cada botón del grid para navegar al módulo correspondiente. */
     private fun configurarBotones() {
 
         // ── M1: Gestión de Productos ─────────────────────────

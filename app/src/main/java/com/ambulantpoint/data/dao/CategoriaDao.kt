@@ -28,9 +28,12 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
 
     // =========================================================
     // INSERT
-    // Retorna el ID asignado por SQLite, o -1 si falló.
-    // El objeto devuelto incluye el ID real post-insert.
     // =========================================================
+
+    /**
+     * Inserta una nueva categoría en la BD dentro de una transacción explícita.
+     * @return ID asignado por SQLite, o -1 si el INSERT falló.
+     */
     fun insert(categoria: Categoria): Long {
         val db = dbHelper.writableDatabase
         var newId = -1L
@@ -49,9 +52,12 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
 
     // =========================================================
     // FIND BY ID
-    // Retorna null si no existe — el llamador decide qué hacer.
-    // Nunca lanzar excepción por "no encontrado".
     // =========================================================
+
+    /**
+     * Busca una categoría por su ID primario.
+     * @return [Categoria] si existe, null si no — el llamador decide cómo manejarlo.
+     */
     fun findById(id: Int): Categoria? {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
@@ -70,9 +76,13 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
     }
 
     // =========================================================
-    // FIND ALL (activas e inactivas)
-    // Para pantallas de administración que muestran todo el historial.
+    // FIND ALL
     // =========================================================
+
+    /**
+     * Retorna todas las categorías (activas e inactivas) ordenadas alfabéticamente.
+     * Útil para pantallas de administración que muestran el historial completo.
+     */
     fun findAll(): List<Categoria> {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
@@ -87,9 +97,13 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
 
     // =========================================================
     // FIND BY ACTIVO
-    // Principal query del Slash Filter: findByActivo(true)
-    // retorna solo categorías visibles con productos disponibles.
     // =========================================================
+
+    /**
+     * Retorna categorías filtradas por estado activo, ordenadas alfabéticamente.
+     * La llamada `findByActivo(true)` es la query principal del catálogo visible.
+     * @param activo true = solo activas, false = solo inactivas (soft-deleted).
+     */
     fun findByActivo(activo: Boolean): List<Categoria> {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
@@ -106,9 +120,13 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
 
     // =========================================================
     // UPDATE
-    // Retorna número de filas afectadas (0 = no encontrado, 1 = OK).
-    // Solo actualiza nombre y activo — fechaCreacion es inmutable.
     // =========================================================
+
+    /**
+     * Actualiza el nombre y estado activo de una categoría existente.
+     * [Categoria.fechaCreacion] es inmutable y no se modifica.
+     * @return número de filas afectadas (0 = no encontrado, 1 = éxito).
+     */
     fun update(categoria: Categoria): Int {
         val db = dbHelper.writableDatabase
         var rowsAffected = 0
@@ -135,11 +153,14 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
     }
 
     // =========================================================
-    // SOFT DELETE (decisión D3)
-    // Nunca elimina físicamente — solo marca activo=false.
-    // La eliminación física solo ocurre si el producto no tiene
-    // historial, y esa decisión la toma CatalogService, no este DAO.
+    // SOFT DELETE
     // =========================================================
+
+    /**
+     * Eliminación lógica: marca `activo = 0` sin borrar el registro (decisión D3).
+     * La categoría deja de ser visible en el catálogo pero conserva su historial.
+     * @return número de filas afectadas.
+     */
     fun softDelete(id: Int): Int {
         val db = dbHelper.writableDatabase
         var rowsAffected = 0
@@ -165,9 +186,13 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
 
     // =========================================================
     // HARD DELETE
-    // Solo para casos donde NO existe historial asociado.
-    // CatalogService decide cuándo llamar esto vs softDelete.
     // =========================================================
+
+    /**
+     * Eliminación física del registro. Solo llamar cuando no existe historial asociado.
+     * [CatalogService] es responsable de verificar antes de invocar este método.
+     * @return número de filas eliminadas.
+     */
     fun hardDelete(id: Int): Int {
         val db = dbHelper.writableDatabase
         var rowsAffected = 0
@@ -189,11 +214,14 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
 
     // =========================================================
     // EXISTS BY NOMBRE
-    // Usado por CatalogService para validar duplicados antes
-    // de insertar — evita depender del mensaje de error de SQLite.
-    // excludeId: permite verificar unicidad al editar (excluir
-    // el propio registro del chequeo).
     // =========================================================
+
+    /**
+     * Verifica si ya existe una categoría con el mismo nombre (case-sensitive en BD).
+     * @param nombre nombre a verificar (se compara sin trim interno — hacerlo antes de llamar).
+     * @param excludeId ID a excluir del chequeo, usado al editar para no colisionar consigo mismo.
+     * @return true si existe un duplicado.
+     */
     fun existsByNombre(nombre: String, excludeId: Int = -1): Boolean {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
@@ -209,11 +237,15 @@ class CategoriaDao(private val dbHelper: DatabaseHelper) {
 
     // =========================================================
     // COUNT PRODUCTOS ACTIVOS
-    // Usado por CatalogService para decidir si se puede
-    // eliminar una categoría (no debe tener productos activos).
-    // Query a tabla producto desde CategoriaDao es aceptable
-    // para esta validación puntual de integridad referencial.
     // =========================================================
+
+    /**
+     * Cuenta los productos activos asociados a una categoría.
+     * Usado por [com.ambulantpoint.service.CatalogService] para decidir si la categoría
+     * puede eliminarse. La consulta a tabla `producto` desde este DAO es aceptable
+     * por ser una validación puntual de integridad referencial.
+     * @return cantidad de productos con `activo = 1` en la categoría.
+     */
     fun countProductosActivos(categoriaId: Int): Int {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery(

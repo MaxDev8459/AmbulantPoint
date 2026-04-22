@@ -93,6 +93,8 @@ object DatabaseContract {
     // RF asociado: RF-07, RF-08, RF-09
     // D2: CTI — esta tabla comparte PK con efectivo, tarjeta, transferencia
     // =========================================================
+
+    /** Tabla padre de la jerarquía CTI de métodos de pago. Su PK es compartida con las tablas hija. */
     object MetodoPagoEntry {
         const val TABLE_NAME     = "metodo_pago"
         const val COL_ID         = "id"
@@ -115,6 +117,8 @@ object DatabaseContract {
     // TABLA: efectivo (CTI — hija de metodo_pago)
     // PK compartida con metodo_pago mediante FK + PK simultánea
     // =========================================================
+
+    /** Tabla hija CTI para pagos en efectivo. Su PK referencia [MetodoPagoEntry]. */
     object EfectivoEntry {
         const val TABLE_NAME     = "efectivo"
         const val COL_ID         = "id"
@@ -134,6 +138,8 @@ object DatabaseContract {
     // =========================================================
     // TABLA: tarjeta (CTI — hija de metodo_pago)
     // =========================================================
+
+    /** Tabla hija CTI para pagos con tarjeta. Incluye comisión y monto neto. */
     object TarjetaEntry {
         const val TABLE_NAME       = "tarjeta"
         const val COL_ID           = "id"
@@ -157,6 +163,8 @@ object DatabaseContract {
     // =========================================================
     // TABLA: transferencia (CTI — hija de metodo_pago)
     // =========================================================
+
+    /** Tabla hija CTI para transferencias bancarias. Agrega campo opcional de referencia. */
     object TransferenciaEntry {
         const val TABLE_NAME       = "transferencia"
         const val COL_ID           = "id"
@@ -184,6 +192,8 @@ object DatabaseContract {
     // Módulo: M2 — Operación de Venta Diaria
     // RF asociado: RF-05
     // =========================================================
+
+    /** Representa una sesión de trabajo diaria del vendedor. Solo puede haber una jornada activa a la vez. */
     object JornadaVentaEntry {
         const val TABLE_NAME          = "jornada_venta"
         const val COL_ID              = "id"
@@ -211,6 +221,8 @@ object DatabaseContract {
     // RF asociado: RF-04
     // Composición con jornada_venta (vive y muere con la jornada)
     // =========================================================
+
+    /** Registro de los productos cargados para una jornada específica. Único por jornada+producto. */
     object CargaDiariaEntry {
         const val TABLE_NAME              = "carga_diaria"
         const val COL_ID                  = "id"
@@ -244,6 +256,8 @@ object DatabaseContract {
     // Módulo: M2 — Operación de Venta Diaria
     // RF asociado: RF-06
     // =========================================================
+
+    /** Cabecera de una venta. El detalle de ítems vive en [DetalleVentaEntry]. */
     object VentaEntry {
         const val TABLE_NAME        = "venta"
         const val COL_ID            = "id"
@@ -271,6 +285,11 @@ object DatabaseContract {
     // CRÍTICO: precio_unitario es snapshot inmutable del precio
     // al momento de la venta — nunca referenciar precio actual (D8)
     // =========================================================
+
+    /**
+     * Línea de ítem de una venta. [COL_PRECIO_UNITARIO] es un snapshot inmutable (D8):
+     * representa el precio al momento de la venta, independiente del precio actual del producto.
+     */
     object DetalleVentaEntry {
         const val TABLE_NAME          = "detalle_venta"
         const val COL_ID              = "id"
@@ -305,6 +324,11 @@ object DatabaseContract {
     //      de la merma. Solo se popula en tipo='MERMA'.
     //      En todos los demás tipos el valor es 0.0.
     // =========================================================
+
+    /**
+     * Auditoría de todos los movimientos de stock. [COL_REF_VENTA_ID] y [COL_REF_CARGA_ID]
+     * son mutuamente excluyentes según el tipo. [COL_PRECIO_PERDIDA] solo aplica en `tipo='MERMA'` (D11).
+     */
     object MovimientoInventarioEntry {
         const val TABLE_NAME          = "movimiento_inventario"
         const val COL_ID              = "id"
@@ -341,9 +365,12 @@ object DatabaseContract {
     // TABLA: corte_caja
     // Módulo: M3 — Cierre y Conciliación
     // RF asociado: RF-10, RF-11, RF-12, RF-13
-    // total_perdida_mermas se calcula sumando
-    // (precio_perdida * cantidad) de MovimientoInventario tipo MERMA
     // =========================================================
+
+    /**
+     * Resumen de cierre de jornada. [COL_TOTAL_PERDIDA_MERMAS] se calcula sumando
+     * `precio_perdida * cantidad` de todos los movimientos con `tipo = 'MERMA'` de la jornada.
+     */
     object CorteCajaEntry {
         const val TABLE_NAME               = "corte_caja"
         const val COL_ID                   = "id"

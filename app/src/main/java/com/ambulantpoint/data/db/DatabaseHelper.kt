@@ -50,8 +50,11 @@ class DatabaseHelper private constructor(context: Context) :
         @Volatile
         private var INSTANCE: DatabaseHelper? = null
 
+        /**
+         * Retorna la instancia única del helper usando double-checked locking thread-safe.
+         * Siempre pasar un [Context] — se usa `applicationContext` internamente para evitar leaks.
+         */
         fun getInstance(context: Context): DatabaseHelper {
-            // Double-checked locking: eficiente y thread-safe
             return INSTANCE ?: synchronized(this) {
                 INSTANCE ?: DatabaseHelper(context).also { INSTANCE = it }
             }
@@ -59,11 +62,14 @@ class DatabaseHelper private constructor(context: Context) :
     }
 
     // =========================================================
-    // onCreate — se ejecuta UNA SOLA VEZ cuando la BD no existe
-    // Orden de creación CRÍTICO: respetar dependencias de FK
-    //   1. Tablas independientes primero (sin FK entrante)
-    //   2. Tablas dependientes después
+    // onCreate
     // =========================================================
+
+    /**
+     * Crea todas las tablas la primera vez que se accede a la BD.
+     * El orden de creación respeta dependencias de FK:
+     * primero tablas sin FK entrante, luego las dependientes.
+     */
     override fun onCreate(db: SQLiteDatabase) {
 
         // FK support debe activarse por conexión en SQLite Android
@@ -87,11 +93,14 @@ class DatabaseHelper private constructor(context: Context) :
     }
 
     // =========================================================
-    // onUpgrade — se ejecuta cuando DB_VERSION incrementa
-    // FASE DESARROLLO: drop + recrear es aceptable.
-    // FASE PRODUCCIÓN: implementar migraciones incrementales.
-    // Orden de DROP es inverso al de CREATE (respetar FKs)
+    // onUpgrade
     // =========================================================
+
+    /**
+     * Se ejecuta al incrementar [DB_VERSION]. Destruye y recrea todas las tablas.
+     * El orden de DROP es inverso al de CREATE para respetar restricciones de FK.
+     * En producción reemplazar por migraciones incrementales para preservar datos.
+     */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("PRAGMA foreign_keys = OFF")
 
@@ -114,9 +123,14 @@ class DatabaseHelper private constructor(context: Context) :
     }
 
     // =========================================================
-    // onOpen — se ejecuta CADA VEZ que se abre la BD
-    // FK support debe reactivarse en cada conexión (limitación SQLite Android)
+    // onOpen
     // =========================================================
+
+    /**
+     * Se ejecuta cada vez que se abre la BD. Reactiva las FK porque SQLite Android
+     * no las mantiene activadas entre conexiones — limitación conocida del driver.
+     * Solo se aplica si la conexión no es de solo lectura.
+     */
     override fun onOpen(db: SQLiteDatabase) {
         super.onOpen(db)
         if (!db.isReadOnly) {

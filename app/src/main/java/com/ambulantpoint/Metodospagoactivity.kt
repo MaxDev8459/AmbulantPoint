@@ -49,6 +49,7 @@ class MetodosPagoActivity : AppCompatActivity() {
         private const val KEY_TRANSFERENCIA  = "transferencia_activa"
     }
 
+    /** Inicializa el binding, carga el estado persistido y registra los listeners de los switches. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMetodosPagoBinding.inflate(layoutInflater)
@@ -63,6 +64,7 @@ class MetodosPagoActivity : AppCompatActivity() {
     // TOOLBAR
     // ─────────────────────────────────────────────────────────
 
+    /** Configura la toolbar con botón de retroceso para volver a MainActivity. */
     private fun configurarToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -102,6 +104,11 @@ class MetodosPagoActivity : AppCompatActivity() {
     // CONFIGURACIÓN DE SWITCHES
     // ─────────────────────────────────────────────────────────
 
+    /**
+     * Registra los listeners de los tres switches.
+     * Cada listener delega a [manejarCambioSwitch] pasando un lambda
+     * de reversión que restaura el estado visual si el usuario cancela.
+     */
     private fun configurarSwitches() {
         binding.switchEfectivo.setOnCheckedChangeListener { _, isChecked ->
             if (cargandoEstado) return@setOnCheckedChangeListener

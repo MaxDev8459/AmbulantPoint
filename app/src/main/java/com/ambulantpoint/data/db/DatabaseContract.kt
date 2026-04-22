@@ -51,8 +51,6 @@ object DatabaseContract {
     // Módulo: M1 — Gestión de Catálogo
     // RF asociado: RF-02, RF-03, RF-18
     // Soft-delete: activo (1 = activo, 0 = eliminado lógicamente)
-    // Nota: imagen_path EXCLUIDA por decisión D4 (sin RF de soporte)
-    // Nota: costo_base ELIMINADO por decisión D10
     // =========================================================
     object ProductoEntry {
         const val TABLE_NAME          = "producto"

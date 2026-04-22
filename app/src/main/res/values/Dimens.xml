@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        DIMENSIONES GLOBALES — AmbulantPoint
+        Referencia: Prompt Maestro Sección 5.3 y 5.5
+
+        REGLA: Ningún layout debe usar valores dp/sp literales.
+        Siempre referenciar estas constantes para mantener
+        coherencia visual y facilitar ajustes globales.
+
+        Organización:
+        1. Espaciado base (sistema de 8dp)
+        2. Tipografía
+        3. Componentes (cards, botones, campos, toolbar)
+        4. Menú principal (grid de botones)
+        5. Layouts de pantallas
+    -->
+
+    <!-- ─────────────────────────────────────────────────────────
+         1. SISTEMA DE ESPACIADO (base: 8dp)
+         Usar múltiplos de 4dp para micro-ajustes, 8dp para general.
+         ───────────────────────────────────────────────────────── -->
+    <dimen name="spacing2">2dp</dimen>
+    <dimen name="spacing4">4dp</dimen>
+    <dimen name="spacing8">8dp</dimen>
+    <dimen name="spacing12">12dp</dimen>
+    <dimen name="spacing16">16dp</dimen>
+    <dimen name="spacing20">20dp</dimen>
+    <dimen name="spacing24">24dp</dimen>
+    <dimen name="spacing32">32dp</dimen>
+    <dimen name="spacing48">48dp</dimen>
+    <dimen name="spacing64">64dp</dimen>
+
+    <!-- ─────────────────────────────────────────────────────────
+         2. TIPOGRAFÍA (sp — escala con accesibilidad del sistema)
+         Referencia: Prompt Maestro Sección 5.3
+         ───────────────────────────────────────────────────────── -->
+
+    <!-- Título centrado de bienvenida en MainActivity -->
+    <dimen name="textSizeScreenTitle">24sp</dimen>
+
+    <!-- Subtítulo "¿Qué deseas hacer hoy?" -->
+    <dimen name="textSizeSubtitle">14sp</dimen>
+
+    <!-- Título de sección dentro de pantalla -->
+    <dimen name="textSizeSectionTitle">18sp</dimen>
+
+    <!-- Título de Toolbar -->
+    <dimen name="textSizeToolbarTitle">18sp</dimen>
+
+    <!-- Cuerpo de texto general -->
+    <dimen name="textSizeBody">14sp</dimen>
+
+    <!-- Texto secundario, hints -->
+    <dimen name="textSizeBodySmall">12sp</dimen>
+
+    <!-- Etiquetas pequeñas, badges, chips -->
+    <dimen name="textSizeCaption">11sp</dimen>
+
+    <!-- Texto de botones primarios -->
+    <dimen name="textSizeButton">14sp</dimen>
+
+    <!-- Texto de botones del menú principal -->
+    <dimen name="textSizeButtonMenu">12sp</dimen>
+
+    <!-- ─────────────────────────────────────────────────────────
+         3. COMPONENTES
+         ───────────────────────────────────────────────────────── -->
+
+    <!-- CARDS (elevation 4dp, cornerRadius 12dp — Sección 5.5) -->
+    <dimen name="cardElevation">4dp</dimen>
+    <dimen name="cardCornerRadius">12dp</dimen>
+    <dimen name="cardContentPadding">16dp</dimen>
+
+    <!-- BOTONES (cornerRadius 12dp — Sección 5.5) -->
+    <dimen name="buttonCornerRadius">12dp</dimen>
+    <dimen name="buttonMinHeight">48dp</dimen>
+    <dimen name="buttonIconPadding">8dp</dimen>
+    <dimen name="buttonHorizontalPadding">20dp</dimen>
+
+    <!-- ALERTDIALOG -->
+    <dimen name="dialogCornerRadius">16dp</dimen>
+
+    <!-- CAMPOS DE TEXTO (OutlinedTextField) -->
+    <dimen name="textFieldCornerRadius">8dp</dimen>
+
+    <!-- TOOLBAR -->
+    <dimen name="toolbarHeight">56dp</dimen>
+
+    <!-- DIVIDERS -->
+    <dimen name="dividerHeight">1dp</dimen>
+    <dimen name="dividerMarginHorizontal">16dp</dimen>
+
+    <!-- ÍCONOS -->
+    <dimen name="iconSizeSmall">16dp</dimen>
+    <dimen name="iconSizeMedium">24dp</dimen>
+    <dimen name="iconSizeLarge">32dp</dimen>
+
+    <!-- ─────────────────────────────────────────────────────────
+         4. MENÚ PRINCIPAL — Grid de 6 botones (2 col × 3 fil)
+         Referencia: Prompt Maestro Sección 6.1
+         ───────────────────────────────────────────────────────── -->
+
+    <!-- Altura mínima de cada botón del menú (≥ 120dp — Sección 6.1) -->
+    <dimen name="buttonMenuMinHeight">120dp</dimen>
+
+    <!-- Tamaño del ícono dentro del botón del menú -->
+    <dimen name="buttonMenuIconSize">36dp</dimen>
+
+    <!-- Espacio entre ícono y texto dentro del botón -->
+    <dimen name="buttonMenuIconPadding">8dp</dimen>
+
+    <!-- Padding vertical interno del botón -->
+    <dimen name="buttonMenuPaddingVertical">16dp</dimen>
+
+    <!-- Espacio entre botones del grid -->
+    <dimen name="menuGridSpacing">12dp</dimen>
+
+    <!-- Padding del contenedor del grid -->
+    <dimen name="menuGridPadding">16dp</dimen>
+
+    <!-- ─────────────────────────────────────────────────────────
+         5. LAYOUTS DE PANTALLAS
+         ───────────────────────────────────────────────────────── -->
+
+    <!-- Padding estándar del contenido de cualquier pantalla -->
+    <dimen name="screenContentPadding">16dp</dimen>
+
+    <!-- Padding superior del contenido bajo la Toolbar -->
+    <dimen name="screenContentPaddingTop">20dp</dimen>
+
+    <!-- Padding inferior para evitar que el último elemento
+         quede tapado por la barra de navegación del sistema -->
+    <dimen name="screenContentPaddingBottom">24dp</dimen>
+
+    <!-- Separación entre campos de formulario -->
+    <dimen name="formFieldSpacing">16dp</dimen>
+
+    <!-- Separación entre secciones de un formulario -->
+    <dimen name="formSectionSpacing">24dp</dimen>
+
+    <!-- Ancho máximo de un formulario centrado (tablets) -->
+    <dimen name="formMaxWidth">480dp</dimen>
+
+    <!-- Separación entre ítems de una lista (RecyclerView) -->
+    <dimen name="listItemSpacing">8dp</dimen>
+
+    <!-- Padding horizontal de un ítem de lista -->
+    <dimen name="listItemPaddingHorizontal">16dp</dimen>
+
+    <!-- Padding vertical de un ítem de lista -->
+    <dimen name="listItemPaddingVertical">12dp</dimen>
+
+    <!-- Elevación del FAB (Floating Action Button) si se usa -->
+    <dimen name="fabElevation">6dp</dimen>
+
+    <!-- Radio de esquinas del Spinner / Dropdown -->
+    <dimen name="spinnerCornerRadius">8dp</dimen>
+
+</resources>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_producto.xml — Ítem de producto en GestionProductosActivity
+    Muestra: nombre, categoría, precio, stock actual.
+    Acciones: tocar fila → editar | botón eliminar → confirmación
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.AmbulantPoint.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/screenContentPadding"
+    android:layout_marginVertical="@dimen/spacing4"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/spacing16">
+
+        <!-- ── Info del producto ────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Nombre -->
+            <TextView
+                android:id="@+id/tvNombreProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeBody"
+                android:textColor="@color/colorOnBackground"
+                android:fontFamily="sans-serif-medium"
+                tools:text="Galleta Choco"
+                xmlns:tools="http://schemas.android.com/tools"/>
+
+            <!-- Categoría -->
+            <TextView
+                android:id="@+id/tvCategoriaProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing2"
+                android:textSize="@dimen/textSizeCaption"
+                android:textColor="@color/colorOnSurface"
+                tools:text="Galletas"
+                xmlns:tools="http://schemas.android.com/tools"/>
+
+            <!-- Fila precio + stock -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Precio -->
+                <TextView
+                    android:id="@+id/tvPrecioProducto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSizeBodySmall"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="sans-serif-medium"
+                    tools:text="$15.00"
+                    xmlns:tools="http://schemas.android.com/tools"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing8"
+                    android:text="·"
+                    android:textColor="@color/colorDivider" />
+
+                <!-- Stock -->
+                <TextView
+                    android:id="@+id/tvStockProducto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSizeBodySmall"
+                    android:textColor="@color/colorOnSurface"
+                    tools:text="Stock: 40"
+                    xmlns:tools="http://schemas.android.com/tools"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ── Botón eliminar ───────────────────────────────── -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEliminarProducto"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:paddingHorizontal="@dimen/spacing8"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="@color/colorError"
+            app:iconSize="@dimen/iconSizeMedium"
+            android:contentDescription="Eliminar producto" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

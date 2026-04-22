@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_gestion_productos.xml — Gestión de Productos
+    Módulo: M1 — Gestión de Catálogo
+    RF asociado: RF-02, RF-18 | CU asociado: CU-10
+
+    Estructura:
+    - Toolbar "Gestión de Productos"
+    - RecyclerView con lista de productos activos (con o sin stock)
+    - TextView vacío cuando no hay productos
+    - FAB circular (solo ícono) en esquina inferior derecha → nuevo producto
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".ui.catalogo.GestionProductosActivity">
+
+    <!-- ── Layout principal vertical ───────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ── Toolbar ──────────────────────────────────────── -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbarHeight"
+            android:background="@color/colorPrimary"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/colorOnPrimary"
+            app:title="Gestión de Productos"
+            app:titleTextColor="@color/colorOnPrimary"
+            app:titleTextAppearance="@style/Widget.AmbulantPoint.Toolbar.TitleText"
+            android:elevation="4dp" />
+
+        <!-- ── Estado vacío (oculto cuando hay productos) ───── -->
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/screenContentPadding"
+            android:text="Aún no tienes productos.\nToca el botón + para agregar el primero."
+            android:textSize="@dimen/textSizeBody"
+            android:textColor="@color/colorOnSurface"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <!-- ── Lista de productos ────────────────────────────── -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProductos"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/spacing8"
+            android:paddingBottom="88dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_producto" />
+
+    </LinearLayout>
+
+    <!-- ── FAB circular — solo ícono, sin texto ─────────────── -->
+    <!--
+        Posicionado en esquina inferior derecha por CoordinatorLayout.
+        Sin texto (ExtendedFloatingActionButton no se usa aquí).
+        Usa FloatingActionButton estándar para el círculo puro.
+        Ícono: ic_menu_nuevo_producto (el mismo del menú principal)
+    -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNuevoProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/spacing24"
+        android:contentDescription="Nuevo producto"
+        android:src="@drawable/ic_menu_nuevo_producto"
+        app:backgroundTint="@color/colorBtnNuevoProducto"
+        app:tint="@color/colorOnPrimary"
+        app:elevation="@dimen/fabElevation" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

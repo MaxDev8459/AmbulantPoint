@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        TEMA GLOBAL — AmbulantPoint
+        Base: Theme.MaterialComponents.Light.NoActionBar
+        Modo: CLARO obligatorio (decisión Prompt Maestro Sección 5.1)
+        NoActionBar: usamos Toolbar personalizada en cada Activity
+        para tener control total sobre color y título.
+
+        NOTA: NO usar Theme.MaterialComponents.DayNight — esta versión
+        no tiene modo oscuro. El alto contraste (RNF-02) se garantiza
+        con colorPrimary oscuro sobre fondo blanco.
+    -->
+    <style name="Theme.AmbulantPoint" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <!-- ── Colores del sistema Material ──────────────────── -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+
+        <!-- ── Fondos ─────────────────────────────────────────── -->
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
+        <!-- ── Barra de estado ────────────────────────────────── -->
+        <!-- Mismo color que colorPrimary para coherencia visual -->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- ── Tipografía ─────────────────────────────────────── -->
+        <!-- Roboto está incluida en Android SDK — sin dependencia externa -->
+        <item name="android:fontFamily">sans-serif</item>
+
+        <!-- ── Estilo global de TextInputLayout (OutlinedBox) ─── -->
+        <!-- Aplica a todos los campos de texto de la app (Sección 5.5) -->
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+
+        <!-- ── Estilo global de Toolbar ───────────────────────── -->
+        <item name="toolbarStyle">@style/Widget.AmbulantPoint.Toolbar</item>
+
+        <!-- ── Estilo global de Cards ─────────────────────────── -->
+        <item name="materialCardViewStyle">@style/Widget.AmbulantPoint.Card</item>
+
+        <!-- ── Estilo global de Botones primarios ─────────────── -->
+        <item name="materialButtonStyle">@style/Widget.AmbulantPoint.Button.Primary</item>
+
+    </style>
+
+    <!-- ─────────────────────────────────────────────────────────
+         TOOLBAR
+         colorPrimary de fondo, texto y íconos en blanco.
+         ───────────────────────────────────────────────────────── -->
+    <style name="Widget.AmbulantPoint.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">@color/colorOnPrimary</item>
+        <item name="subtitleTextColor">@color/colorOnPrimary</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <!-- Texto de título de Toolbar -->
+    <style name="Widget.AmbulantPoint.Toolbar.TitleText" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/textSizeToolbarTitle</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- ─────────────────────────────────────────────────────────
+         CARDS
+         elevation 4dp, esquinas redondeadas 12dp, fondo colorSurface.
+         Referencia: Prompt Maestro Sección 5.5
+         ───────────────────────────────────────────────────────── -->
+    <style name="Widget.AmbulantPoint.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">@dimen/cardElevation</item>
+        <item name="cardCornerRadius">@dimen/cardCornerRadius</item>
+        <item name="cardBackgroundColor">@color/colorSurface</item>
+        <item name="contentPadding">@dimen/cardContentPadding</item>
+    </style>
+
+    <!-- ─────────────────────────────────────────────────────────
+         BOTONES
+         cornerRadius 12dp, con soporte para ícono + texto.
+         Referencia: Prompt Maestro Sección 5.5
+         ───────────────────────────────────────────────────────── -->
+    <style name="Widget.AmbulantPoint.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorOnPrimary</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="cornerRadius">@dimen/buttonCornerRadius</item>
+        <item name="android:textSize">@dimen/textSizeButton</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">@dimen/buttonMinHeight</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/buttonIconPadding</item>
+    </style>
+
+    <!-- Botón secundario (outline) -->
+    <style name="Widget.AmbulantPoint.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="strokeColor">@color/colorPrimary</item>
+        <item name="cornerRadius">@dimen/buttonCornerRadius</item>
+        <item name="android:textSize">@dimen/textSizeButton</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">@dimen/buttonMinHeight</item>
+    </style>
+
+    <!-- Botón destructivo (rojo) para acciones de eliminación -->
+    <style name="Widget.AmbulantPoint.Button.Destructive" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorOnError</item>
+        <item name="backgroundTint">@color/colorError</item>
+        <item name="cornerRadius">@dimen/buttonCornerRadius</item>
+        <item name="android:textSize">@dimen/textSizeButton</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">@dimen/buttonMinHeight</item>
+    </style>
+
+    <!-- ─────────────────────────────────────────────────────────
+         BOTONES DEL MENÚ PRINCIPAL (6 botones del grid)
+         Altura mínima 120dp, ícono arriba, texto abajo.
+         Cada botón tiene su color individual definido en colors.xml.
+         Referencia: Prompt Maestro Sección 6.1
+         ───────────────────────────────────────────────────────── -->
+    <style name="Widget.AmbulantPoint.Button.Menu" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorBtnMenuText</item>
+        <item name="cornerRadius">@dimen/buttonCornerRadius</item>
+        <item name="android:textSize">@dimen/textSizeButtonMenu</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">@dimen/buttonMenuMinHeight</item>
+        <item name="android:gravity">center</item>
+        <item name="iconGravity">top</item>
+        <item name="iconSize">@dimen/buttonMenuIconSize</item>
+        <item name="iconPadding">@dimen/buttonMenuIconPadding</item>
+        <item name="android:paddingTop">@dimen/buttonMenuPaddingVertical</item>
+        <item name="android:paddingBottom">@dimen/buttonMenuPaddingVertical</item>
+    </style>
+
+    <!-- ─────────────────────────────────────────────────────────
+         CAMPOS DE TEXTO (OutlinedTextField)
+         Referencia: Prompt Maestro Sección 5.5
+         ───────────────────────────────────────────────────────── -->
+    <style name="Widget.AmbulantPoint.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="hintTextColor">@color/colorPrimary</item>
+        <item name="android:hint">@null</item>
+    </style>
+
+    <!-- ─────────────────────────────────────────────────────────
+         ALERTDIALOG
+         Esquinas redondeadas, fondo blanco.
+         ───────────────────────────────────────────────────────── -->
+    <style name="Widget.AmbulantPoint.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.AmbulantPoint.MediumComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.AmbulantPoint.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">@dimen/dialogCornerRadius</item>
+    </style>
+
+    <!-- ─────────────────────────────────────────────────────────
+         TEXTOS — AppearanceCompat para usar en layouts con
+         android:textAppearance="@style/..."
+         ───────────────────────────────────────────────────────── -->
+
+    <!-- Título de pantalla principal -->
+    <style name="TextAppearance.AmbulantPoint.ScreenTitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/textSizeScreenTitle</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Subtítulo de pantalla -->
+    <style name="TextAppearance.AmbulantPoint.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:textSize">@dimen/textSizeSubtitle</item>
+    </style>
+
+    <!-- Cuerpo de texto normal -->
+    <style name="TextAppearance.AmbulantPoint.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/colorOnBackground</item>
+        <item name="android:textSize">@dimen/textSizeBody</item>
+    </style>
+
+    <!-- Etiquetas pequeñas (stock, badges, chips) -->
+    <style name="TextAppearance.AmbulantPoint.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:textSize">@dimen/textSizeCaption</item>
+    </style>
+
+    <!-- Texto de error bajo campos de formulario -->
+    <style name="TextAppearance.AmbulantPoint.Error" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/colorError</item>
+        <item name="android:textSize">@dimen/textSizeCaption</item>
+    </style>
+
+</resources>

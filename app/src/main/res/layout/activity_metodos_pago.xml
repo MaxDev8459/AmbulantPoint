@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_metodos_pago.xml — Configurar Métodos de Pago
+    Referencia: Prompt Maestro Sección 6.2 MetodosPagoActivity
+
+    3 métodos: Efectivo (activo por defecto), Tarjeta, Transferencia.
+    Cada uno con Switch para activar/desactivar.
+    Reglas: mínimo 1 activo siempre. Desactivar requiere confirmación.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context=".MetodosPagoActivity">
+
+    <!-- ── Toolbar ──────────────────────────────────────────── -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/colorBtnMetodosPago"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/colorOnPrimary"
+        app:title="Métodos de Pago"
+        app:titleTextColor="@color/colorOnPrimary"
+        android:elevation="4dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/screenContentPadding"
+            android:paddingTop="@dimen/screenContentPaddingTop"
+            android:paddingBottom="@dimen/screenContentPaddingBottom">
+
+            <!-- Descripción -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activa los métodos de pago que aceptas. Debe haber al menos uno activo en todo momento."
+                android:textSize="@dimen/textSizeBody"
+                android:textColor="@color/colorOnSurface"
+                android:layout_marginBottom="@dimen/spacing24" />
+
+            <!-- ── Card: Efectivo ────────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEfectivo"
+                style="@style/Widget.AmbulantPoint.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/spacing16">
+
+                    <ImageView
+                        android:layout_width="@dimen/iconSizeLarge"
+                        android:layout_height="@dimen/iconSizeLarge"
+                        android:src="@drawable/ic_metodo_efectivo"
+                        android:contentDescription="Efectivo"
+                        app:tint="@color/colorSuccess" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/spacing16"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Efectivo"
+                            android:textSize="@dimen/textSizeSectionTitle"
+                            android:textColor="@color/colorOnBackground"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sin comisión"
+                            android:textSize="@dimen/textSizeCaption"
+                            android:textColor="@color/colorOnSurface" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchEfectivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Card: Tarjeta ─────────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTarjeta"
+                style="@style/Widget.AmbulantPoint.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/spacing16">
+
+                    <ImageView
+                        android:layout_width="@dimen/iconSizeLarge"
+                        android:layout_height="@dimen/iconSizeLarge"
+                        android:src="@drawable/ic_metodo_tarjeta"
+                        android:contentDescription="Tarjeta"
+                        app:tint="@color/colorPrimaryVariant" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/spacing16"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tarjeta"
+                            android:textSize="@dimen/textSizeSectionTitle"
+                            android:textColor="@color/colorOnBackground"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Comisión configurable"
+                            android:textSize="@dimen/textSizeCaption"
+                            android:textColor="@color/colorOnSurface" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchTarjeta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Card: Transferencia ───────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTransferencia"
+                style="@style/Widget.AmbulantPoint.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/spacing16">
+
+                    <ImageView
+                        android:layout_width="@dimen/iconSizeLarge"
+                        android:layout_height="@dimen/iconSizeLarge"
+                        android:src="@drawable/ic_metodo_transferencia"
+                        android:contentDescription="Transferencia"
+                        app:tint="@color/colorAccent" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/spacing16"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Transferencia"
+                            android:textSize="@dimen/textSizeSectionTitle"
+                            android:textColor="@color/colorOnBackground"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SPEI / CoDi"
+                            android:textSize="@dimen/textSizeCaption"
+                            android:textColor="@color/colorOnSurface" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchTransferencia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

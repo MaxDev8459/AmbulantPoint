@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_main.xml — Pantalla de bienvenida / Menú Principal
+    Referencia: Prompt Maestro Sección 6.1
+
+    Estructura:
+    - Toolbar con título de la app
+    - ScrollView para soportar pantallas pequeñas
+      - Título "Bienvenido a AmbulantPoint"
+      - Subtítulo "¿Qué deseas hacer hoy?"
+      - GridLayout 2 columnas × 3 filas con 6 botones de acción
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context=".MainActivity">
+
+    <!-- ── Toolbar ──────────────────────────────────────────── -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/colorPrimary"
+        app:title="AmbulantPoint"
+        app:titleTextColor="@color/colorOnPrimary"
+        app:titleTextAppearance="@style/Widget.AmbulantPoint.Toolbar.TitleText"
+        android:elevation="4dp" />
+
+    <!-- ── Contenido con scroll ──────────────────────────────── -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/menuGridPadding"
+            android:paddingTop="@dimen/screenContentPaddingTop"
+            android:paddingBottom="@dimen/screenContentPaddingBottom">
+
+            <!-- ── Título de bienvenida ──────────────────────── -->
+            <TextView
+                android:id="@+id/tvWelcomeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bienvenido a AmbulantPoint"
+                android:textSize="@dimen/textSizeScreenTitle"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- ── Subtítulo ─────────────────────────────────── -->
+            <TextView
+                android:id="@+id/tvWelcomeSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing8"
+                android:text="¿Qué deseas hacer hoy?"
+                android:textSize="@dimen/textSizeSubtitle"
+                android:textColor="@color/colorOnSurface"
+                android:gravity="center" />
+
+            <!-- ── Grid 2 × 3 de botones ─────────────────────── -->
+            <!--
+                Implementado con 3 LinearLayout horizontales (una por fila).
+                Cada botón tiene layout_weight="1" para dividir el ancho
+                en partes iguales. Esto es equivalente a GridLayout 2 cols
+                pero sin dependencia de androidx.gridlayout.
+            -->
+            <LinearLayout
+                android:id="@+id/gridMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing24"
+                android:orientation="vertical">
+
+                <!-- ── FILA 1 ──────────────────────────────────── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Gestión de Productos -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNuevoProducto"
+                        style="@style/Widget.AmbulantPoint.Button.Menu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/menuGridSpacing"
+                        android:text="Gestión\nProductos"
+                        android:backgroundTint="@color/colorBtnNuevoProducto"
+                        app:icon="@drawable/ic_menu_nuevo_producto" />
+
+                    <!-- Iniciar Venta del Día -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnIniciarVenta"
+                        style="@style/Widget.AmbulantPoint.Button.Menu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/menuGridSpacing"
+                        android:text="Iniciar Venta\ndel Día"
+                        android:backgroundTint="@color/colorBtnIniciarVenta"
+                        app:icon="@drawable/ic_menu_iniciar_venta" />
+
+                </LinearLayout>
+
+                <!-- ── FILA 2 ──────────────────────────────────── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Dashboard -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDashboard"
+                        style="@style/Widget.AmbulantPoint.Button.Menu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/menuGridSpacing"
+                        android:text="Dashboard"
+                        android:backgroundTint="@color/colorBtnDashboard"
+                        app:icon="@drawable/ic_menu_dashboard" />
+
+                    <!-- Generar Reporte -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReporte"
+                        style="@style/Widget.AmbulantPoint.Button.Menu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/menuGridSpacing"
+                        android:text="Generar\nReporte"
+                        android:backgroundTint="@color/colorBtnReporte"
+                        app:icon="@drawable/ic_menu_reporte" />
+
+                </LinearLayout>
+
+                <!-- ── FILA 3 ──────────────────────────────────── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Notificaciones y Predicciones -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNotificaciones"
+                        style="@style/Widget.AmbulantPoint.Button.Menu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/menuGridSpacing"
+                        android:text="Notificaciones\ny Predicciones"
+                        android:backgroundTint="@color/colorBtnNotificaciones"
+                        app:icon="@drawable/ic_menu_notificaciones" />
+
+                    <!-- Configurar Métodos de Pago -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnMetodosPago"
+                        style="@style/Widget.AmbulantPoint.Button.Menu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/menuGridSpacing"
+                        android:text="Configurar\nMétodos de Pago"
+                        android:backgroundTint="@color/colorBtnMetodosPago"
+                        app:icon="@drawable/ic_menu_metodos_pago" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

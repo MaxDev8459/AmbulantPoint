@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_producto_form.xml — Formulario Nuevo/Editar Producto
+    Módulo: M1 — Gestión de Catálogo
+    RF asociado: RF-02, RF-18
+
+    Modos:
+    - CREACIÓN: muestra todos los campos incluyendo stock inicial
+    - EDICIÓN:  oculta el campo stock (no editable por diseño)
+
+    Campos:
+    - Nombre del producto
+    - Categoría (Spinner + botón Nueva Categoría)
+    - Precio de venta
+    - Stock inicial (solo visible en modo creación)
+    - Botón Guardar
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context=".ui.catalogo.ProductoFormActivity">
+
+    <!-- ── Toolbar ──────────────────────────────────────────── -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/colorOnPrimary"
+        app:title="Nuevo Producto"
+        app:titleTextColor="@color/colorOnPrimary"
+        app:titleTextAppearance="@style/Widget.AmbulantPoint.Toolbar.TitleText"
+        android:elevation="4dp"
+        tools:title="Nuevo Producto" />
+
+    <!-- ── Contenido con scroll ──────────────────────────────── -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/screenContentPadding"
+            android:paddingTop="@dimen/screenContentPaddingTop"
+            android:paddingBottom="@dimen/screenContentPaddingBottom">
+
+            <!-- ── Campo: Nombre ─────────────────────────────── -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNombre"
+                style="@style/Widget.AmbulantPoint.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del producto">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvErrorNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:layout_marginStart="@dimen/spacing16"
+                android:textAppearance="@style/TextAppearance.AmbulantPoint.Error"
+                android:visibility="gone"
+                tools:text="El nombre no puede estar vacío."
+                tools:visibility="visible" />
+
+            <!-- ── Sección: Categoría ────────────────────────── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/formFieldSpacing"
+                android:text="Categoría"
+                android:textAppearance="@style/TextAppearance.AmbulantPoint.Body"
+                android:textColor="@color/colorOnBackground"
+                android:fontFamily="sans-serif-medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing8"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <Spinner
+                    android:id="@+id/spinnerCategoria"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:paddingHorizontal="@dimen/spacing12"
+                    android:spinnerMode="dropdown" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNuevaCategoria"
+                    style="@style/Widget.AmbulantPoint.Button.Secondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing8"
+                    android:text="+ Nueva"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvErrorCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:layout_marginStart="@dimen/spacing16"
+                android:textAppearance="@style/TextAppearance.AmbulantPoint.Error"
+                android:visibility="gone"
+                tools:text="Selecciona una categoría."
+                tools:visibility="visible" />
+
+            <!-- ── Campo: Precio de venta ────────────────────── -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPrecioVenta"
+                style="@style/Widget.AmbulantPoint.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/formFieldSpacing"
+                android:hint="Precio de venta"
+                app:prefixText="$">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPrecioVenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvErrorPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:layout_marginStart="@dimen/spacing16"
+                android:textAppearance="@style/TextAppearance.AmbulantPoint.Error"
+                android:visibility="gone"
+                tools:text="El precio debe ser mayor a $0.00."
+                tools:visibility="visible" />
+
+            <!-- ── Campo: Stock inicial (solo modo CREACIÓN) ─── -->
+            <!--
+                Este contenedor se oculta completo en modo edición.
+                El stock no es editable — solo se puede modificar
+                mediante las operaciones de carga/venta/merma.
+            -->
+            <LinearLayout
+                android:id="@+id/containerStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilStockInicial"
+                    style="@style/Widget.AmbulantPoint.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/formFieldSpacing"
+                    android:hint="Stock inicial (unidades en bodega)"
+                    app:helperText="Puedes dejarlo en 0 y agregar stock después">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etStockInicial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:imeOptions="actionDone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvErrorStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing4"
+                    android:layout_marginStart="@dimen/spacing16"
+                    android:textAppearance="@style/TextAppearance.AmbulantPoint.Error"
+                    android:visibility="gone"
+                    tools:text="El stock no puede ser negativo."
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+            <!-- ── Botón Guardar ─────────────────────────────── -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardar"
+                style="@style/Widget.AmbulantPoint.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/formSectionSpacing"
+                android:text="Guardar Producto"
+                app:icon="@drawable/ic_save" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

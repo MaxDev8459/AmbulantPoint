@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AndroidManifest.xml — AmbulantPoint
+    Fase: Desarrollo inicial (Fases 1-5 completadas)
+
+    Permisos: NINGUNO — app 100% offline, sin internet, sin cámara,
+    sin almacenamiento externo. Solo SQLite local y SharedPreferences.
+
+    Activities declaradas (7 total):
+    - MainActivity         → Menú principal (LAUNCHER)
+    - ProductoFormActivity → M1: Crear/editar producto
+    - IniciarVentaActivity → M2: Operación de venta diaria (esqueleto)
+    - DashboardActivity    → M4: Inteligencia de negocios (esqueleto)
+    - ReporteActivity      → M3: Cierre y conciliación (esqueleto)
+    - NotificacionesActivity → M4: Alertas y predicciones (esqueleto)
+    - MetodosPagoActivity  → Configuración de métodos de pago
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ambulantpoint">
+
+    <!--
+        Sin permisos declarados.
+        AmbulantPoint es 100% offline (RNF-01):
+        - Sin INTERNET
+        - Sin READ/WRITE_EXTERNAL_STORAGE
+        - Sin CAMERA
+        SQLite y SharedPreferences no requieren permisos en Android.
+    -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AmbulantPoint">
+
+        <!-- ══════════════════════════════════════════════════
+             MAIN ACTIVITY — Punto de entrada de la aplicación
+             Menú principal con grid de 6 botones.
+             ══════════════════════════════════════════════════ -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <!-- ══════════════════════════════════════════════════
+             M1 — GESTIÓN DE CATÁLOGO
+             ══════════════════════════════════════════════════ -->
+
+        <!--
+            GestionProductosActivity — Lista, edita y elimina productos.
+            RF asociado: RF-02, RF-18 | CU asociado: CU-10
+        -->
+        <activity
+            android:name=".ui.catalogo.GestionProductosActivity"
+            android:exported="false"
+            android:label="Gestión de Productos"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateHidden">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+
+        <!--
+            ProductoFormActivity — Crear / editar producto.
+            RF asociado: RF-02, RF-18 | CU asociado: CU-10
+            Modos: CREACIÓN (sin extra) / EDICIÓN (con EXTRA_PRODUCTO_ID)
+        -->
+        <activity
+            android:name=".ui.catalogo.ProductoFormActivity"
+            android:exported="false"
+            android:label="Producto"
+            android:parentActivityName=".ui.catalogo.GestionProductosActivity"
+            android:windowSoftInputMode="adjustResize">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.catalogo.GestionProductosActivity" />
+
+        </activity>
+
+        <!-- ══════════════════════════════════════════════════
+             M2 — OPERACIÓN DE VENTA DIARIA (esqueleto)
+             ══════════════════════════════════════════════════ -->
+
+        <!--
+            IniciarVentaActivity — Carga diaria, Slash Filter, ventas.
+            RF asociado: RF-04, RF-05, RF-06 | CU asociado: CU-01, CU-02
+            Lógica completa se implementa en fase de desarrollo M2.
+        -->
+        <activity
+            android:name=".IniciarVentaActivity"
+            android:exported="false"
+            android:label="Iniciar Venta del Día"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+
+        <!-- ══════════════════════════════════════════════════
+             M3 — CIERRE Y CONCILIACIÓN (esqueleto)
+             ══════════════════════════════════════════════════ -->
+
+        <!--
+            ReporteActivity — Historial de jornadas, filtro por fecha.
+            RF asociado: RF-10, RF-11, RF-12, RF-19 | CU asociado: CU-05, CU-11
+            Lógica completa se implementa en fase de desarrollo M3.
+        -->
+        <activity
+            android:name=".ReporteActivity"
+            android:exported="false"
+            android:label="Generar Reporte"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+
+        <!-- ══════════════════════════════════════════════════
+             M4 — INTELIGENCIA DE NEGOCIOS (esqueletos)
+             ══════════════════════════════════════════════════ -->
+
+        <!--
+            DashboardActivity — KPIs y métricas del negocio.
+            RF asociado: RF-14, RF-15 | CU asociado: CU-08
+            Lógica completa se implementa en fase de desarrollo M4.
+        -->
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false"
+            android:label="Dashboard"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+
+        <!--
+            NotificacionesActivity — Alertas de stock y predicciones.
+            RF asociado: RF-16, RF-17 | CU asociado: CU-09
+            Lógica completa se implementa en fase de desarrollo M4.
+        -->
+        <activity
+            android:name=".NotificacionesActivity"
+            android:exported="false"
+            android:label="Notificaciones y Predicciones"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+
+        <!-- ══════════════════════════════════════════════════
+             CONFIGURACIÓN
+             ══════════════════════════════════════════════════ -->
+
+        <!--
+            MetodosPagoActivity — Activar/desactivar métodos de pago.
+            Lógica autocontenida: reglas de negocio completas.
+            Persistencia: SharedPreferences (no requiere M2/M3/M4).
+        -->
+        <activity
+            android:name=".MetodosPagoActivity"
+            android:exported="false"
+            android:label="Métodos de Pago"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateHidden">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+
+    </application>
+
+</manifest>

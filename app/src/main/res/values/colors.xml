@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        PALETA DE COLORES — AmbulantPoint
+        Tema: CLARO (Light) obligatorio — sin modo oscuro en esta versión.
+        Referencia: Prompt Maestro Sección 5.2
+        Alto contraste para uso bajo luz solar (RNF-02)
+    -->
+
+    <!-- ── COLORES PRIMARIOS ─────────────────────────────────── -->
+    <!-- Azul oscuro: barra de título, elementos primarios -->
+    <color name="colorPrimary">#1565C0</color>
+
+    <!-- Azul medio: botones primarios, bordes activos -->
+    <color name="colorPrimaryVariant">#1E88E5</color>
+
+    <!-- Texto/íconos sobre fondo primario -->
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <!-- ── COLORES SECUNDARIOS ───────────────────────────────── -->
+    <!-- Verde oscuro: acciones secundarias -->
+    <color name="colorSecondary">#2E7D32</color>
+
+    <!-- Verde medio: acentos, badges -->
+    <color name="colorSecondaryVariant">#43A047</color>
+
+    <!-- Texto/íconos sobre fondo secundario -->
+    <color name="colorOnSecondary">#FFFFFF</color>
+
+    <!-- ── ACENTO ────────────────────────────────────────────── -->
+    <!-- Cyan: highlights, íconos activos -->
+    <color name="colorAccent">#00ACC1</color>
+
+    <!-- ── FONDOS ────────────────────────────────────────────── -->
+    <!-- Fondo general de pantallas -->
+    <color name="colorBackground">#FFFFFF</color>
+
+    <!-- Fondo de cards y listas -->
+    <color name="colorSurface">#F5F5F5</color>
+
+    <!-- ── TEXTO ─────────────────────────────────────────────── -->
+    <!-- Texto principal sobre fondo blanco -->
+    <color name="colorOnBackground">#212121</color>
+
+    <!-- Texto secundario sobre cards/surface -->
+    <color name="colorOnSurface">#424242</color>
+
+    <!-- ── ESTADOS SEMÁNTICOS ────────────────────────────────── -->
+    <!-- Errores y acciones destructivas -->
+    <color name="colorError">#D32F2F</color>
+    <color name="colorOnError">#FFFFFF</color>
+
+    <!-- Advertencias -->
+    <color name="colorWarning">#F57C00</color>
+
+    <!-- Confirmaciones y éxito -->
+    <color name="colorSuccess">#388E3C</color>
+
+    <!-- ── UTILIDADES ────────────────────────────────────────── -->
+    <!-- Líneas divisoras, bordes sutiles -->
+    <color name="colorDivider">#E0E0E0</color>
+
+    <!-- Texto hint/placeholder en campos de texto -->
+    <color name="colorHint">#9E9E9E</color>
+
+    <!-- ── COLORES DE BOTONES DEL MENÚ PRINCIPAL ─────────────── -->
+    <!-- Referencia: Prompt Maestro Sección 6.1 -->
+    <!-- Cada botón del grid de 6 tiene su propio color de fondo  -->
+
+    <!-- Nuevo Producto — Azul medio: acción de creación -->
+    <color name="colorBtnNuevoProducto">#1E88E5</color>
+
+    <!-- Iniciar Venta del Día — Verde oscuro: acción principal de negocio -->
+    <color name="colorBtnIniciarVenta">#2E7D32</color>
+
+    <!-- Dashboard — Azul marino: análisis/visualización -->
+    <color name="colorBtnDashboard">#0277BD</color>
+
+    <!-- Generar Reporte — Cyan oscuro: consulta histórica -->
+    <color name="colorBtnReporte">#00838F</color>
+
+    <!-- Notificaciones y Predicciones — Azul índigo: inteligencia/alertas -->
+    <color name="colorBtnNotificaciones">#283593</color>
+
+    <!-- Configurar Métodos de Pago — Verde olivo: configuración -->
+    <color name="colorBtnMetodosPago">#558B2F</color>
+
+    <!-- Texto sobre todos los botones del menú -->
+    <color name="colorBtnMenuText">#FFFFFF</color>
+
+</resources>

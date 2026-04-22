@@ -1,0 +1,64 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Android
+*.apk
+*.ap_
+*.dex
+*.class
+*.jar
+*.so
+*.zip
+*.rar
+*.tar.gz
+
+# Gradle
+.gradle/
+build/
+*.gradle~
+local.properties
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+*.swp
+*~
+.DS_Store
+*.log
+
+# Kotlin
+.kotlin/
+
+# Build outputs
+out/
+gen/
+
+# IDE
+.vscode/
+.classpath
+.project
+.settings/
+.eclipse/
+
+# Logs
+*.log
+*.txt.log
+
+# Environment
+.env
+.env.local

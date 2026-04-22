@@ -22,7 +22,6 @@ import com.ambulantpoint.data.model.Producto
  * Decisiones aplicadas:
  * - D1: stock_general como nombre canónico de columna
  * - D3: Soft-delete via campo activo
- * - D10: costo_base ELIMINADO — no aparece en ningún ContentValues
  */
 class ProductoDao(private val dbHelper: DatabaseHelper) {
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_registrar_merma"
+        android:title="Registrar Merma"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/action_cerrar_jornada"
+        android:title="Cerrar Jornada"
+        app:showAsAction="never" />
+
+</menu>

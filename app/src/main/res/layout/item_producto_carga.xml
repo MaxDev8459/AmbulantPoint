@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_producto_carga.xml — Ítem de producto en CU-01 (Cargar Venta Diaria)
+    Muestra nombre, categoría, precio y stock general.
+    Control de cantidad: botones - y + con valor central.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/listItemPaddingHorizontal"
+    android:paddingTop="@dimen/listItemPaddingVertical"
+    android:paddingBottom="@dimen/listItemPaddingVertical"
+    android:gravity="center_vertical">
+
+    <!-- ── Info del producto ────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/spacing8">
+
+        <TextView
+            android:id="@+id/tvNombreCarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSizeBody"
+            android:textColor="@color/colorOnBackground"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Nombre del producto" />
+
+        <TextView
+            android:id="@+id/tvCategoriaPrecioCarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing2"
+            android:textSize="@dimen/textSizeBodySmall"
+            android:textColor="@color/colorOnSurface"
+            android:text="Categoría · $0.00" />
+
+        <TextView
+            android:id="@+id/tvStockDisponibleCarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing2"
+            android:textSize="@dimen/textSizeCaption"
+            android:textColor="@color/colorSecondary"
+            android:text="Disponible: 0" />
+
+    </LinearLayout>
+
+    <!-- ── Control de cantidad: [ - ] [ N ] [ + ] ─────────── -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnMenos"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:text="-"
+            android:textSize="18sp"
+            android:textColor="@color/colorOnPrimary"
+            android:backgroundTint="@color/colorPrimaryVariant"
+            android:padding="0dp"
+            style="?attr/materialButtonStyle"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
+
+        <TextView
+            android:id="@+id/tvCantidadCarga"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/textSizeSectionTitle"
+            android:textColor="@color/colorOnBackground"
+            android:textStyle="bold"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/btnMas"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:text="+"
+            android:textSize="18sp"
+            android:textColor="@color/colorOnPrimary"
+            android:backgroundTint="@color/colorPrimaryVariant"
+            android:padding="0dp"
+            style="?attr/materialButtonStyle"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCargarTodo"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/spacing8"
+            android:text="Todo"
+            android:textSize="11sp"
+            android:minWidth="0dp"
+            android:paddingStart="@dimen/spacing8"
+            android:paddingEnd="@dimen/spacing8" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -72,31 +72,19 @@ class ProductoFormActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { finish() }
-        // Título según modo
         binding.toolbar.title = if (productoId == null) "Nuevo Producto" else "Editar Producto"
     }
 
-    /**
-     * Aplica el modo correcto según si viene productoId o no.
-     * EDICIÓN: oculta el contenedor de stock y precarga datos.
-     * CREACIÓN: todos los campos visibles, sin precarga.
-     */
     private fun configurarModo() {
         val id = productoId
         if (id == null) {
-            // Modo creación — stock visible
             binding.containerStock.visibility = View.VISIBLE
         } else {
-            // Modo edición — stock oculto
             binding.containerStock.visibility = View.GONE
             precargarDatosProducto(id)
         }
     }
 
-    /**
-     * Carga los datos del producto existente en los campos del formulario.
-     * Se llama solo en modo edición, antes de cargarCategorias().
-     */
     private fun precargarDatosProducto(id: Long) {
         val producto = catalogService.getProducto(id)
         if (producto == null) {
@@ -106,7 +94,6 @@ class ProductoFormActivity : AppCompatActivity() {
         }
         binding.etNombre.setText(producto.nombre)
         binding.etPrecioVenta.setText(producto.precioVenta.toString())
-        // La categoría se seleccionará en cargarCategorias() usando categoriaId
     }
 
     // ─────────────────────────────────────────────────────────
@@ -135,7 +122,6 @@ class ProductoFormActivity : AppCompatActivity() {
             spinnerAdapter.notifyDataSetChanged()
         }
 
-        // En modo edición: seleccionar la categoría actual del producto
         val idASeleccionar = seleccionarId ?: run {
             val id = productoId ?: return@run null
             catalogService.getProducto(id)?.categoriaId?.toInt()
@@ -225,7 +211,6 @@ class ProductoFormActivity : AppCompatActivity() {
         try {
             val id = productoId
             if (id == null) {
-                // ── MODO CREACIÓN ──────────────────────────────
                 val stockTexto   = binding.etStockInicial.text.toString()
                 val stockInicial = if (stockTexto.isBlank()) 0
                 else stockTexto.toIntOrNull()
@@ -241,7 +226,6 @@ class ProductoFormActivity : AppCompatActivity() {
                 )
                 Toast.makeText(this, "Producto creado correctamente", Toast.LENGTH_SHORT).show()
             } else {
-                // ── MODO EDICIÓN ───────────────────────────────
                 catalogService.updateProducto(
                     productoId  = id,
                     nombre      = nombre,
@@ -250,7 +234,6 @@ class ProductoFormActivity : AppCompatActivity() {
                 )
                 Toast.makeText(this, "Producto actualizado correctamente", Toast.LENGTH_SHORT).show()
             }
-            // Indicar a GestionProductosActivity que recargue la lista
             setResult(RESULT_OK)
             finish()
         } catch (e: ValidationException) {

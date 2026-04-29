@@ -1,4 +1,4 @@
-package com.ambulantpoint
+package com.ambulantpoint.ui.venta
 
 import android.content.Context
 import android.os.Bundle
@@ -16,28 +16,16 @@ import com.ambulantpoint.databinding.ActivityMetodosPagoBinding
  * 4. ACTIVAR siempre está permitido sin confirmación.
  *
  * PERSISTENCIA: SharedPreferences.
- * Justificación: el estado de los métodos de pago es configuración
- * global de la app, no datos de transacciones. SharedPreferences es
- * el mecanismo idóneo para preferencias simples clave-valor.
- * SQLite sería sobrediseño para 3 booleanos que no necesitan consultas,
- * joins ni historial.
- *
- * CLAVE: "metodos_pago" con campos:
- *   - efectivo_activo   (Boolean, default true)
- *   - tarjeta_activa    (Boolean, default false)
- *   - transferencia_activa (Boolean, default false)
+ * CU asociado: CU-03
  */
 class MetodosPagoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMetodosPagoBinding
 
-    // SharedPreferences para persistir estado de métodos
     private val prefs by lazy {
         getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    // Flag interno para ignorar el listener durante carga inicial
-    // y evitar que setChecked() dispare el listener prematuramente
     private var cargandoEstado = false
 
     companion object {
@@ -71,11 +59,6 @@ class MetodosPagoActivity : AppCompatActivity() {
     // CARGA Y PERSISTENCIA DE ESTADO
     // ─────────────────────────────────────────────────────────
 
-    /**
-     * Lee el estado guardado en SharedPreferences y lo aplica
-     * a los switches sin disparar los listeners.
-     * Default inicial: solo Efectivo activo.
-     */
     private fun cargarEstado() {
         cargandoEstado = true
         binding.switchEfectivo.isChecked      = prefs.getBoolean(KEY_EFECTIVO, true)
@@ -84,10 +67,6 @@ class MetodosPagoActivity : AppCompatActivity() {
         cargandoEstado = false
     }
 
-    /**
-     * Persiste el estado actual de los 3 switches en SharedPreferences.
-     * Se llama después de cada cambio confirmado.
-     */
     private fun guardarEstado() {
         prefs.edit()
             .putBoolean(KEY_EFECTIVO, binding.switchEfectivo.isChecked)
@@ -104,7 +83,6 @@ class MetodosPagoActivity : AppCompatActivity() {
         binding.switchEfectivo.setOnCheckedChangeListener { _, isChecked ->
             if (cargandoEstado) return@setOnCheckedChangeListener
             manejarCambioSwitch("Efectivo", KEY_EFECTIVO, isChecked) {
-                // Si se revierte, restaurar sin disparar listener
                 cargandoEstado = true
                 binding.switchEfectivo.isChecked = !isChecked
                 cargandoEstado = false
@@ -134,19 +112,6 @@ class MetodosPagoActivity : AppCompatActivity() {
     // LÓGICA DE NEGOCIO — CAMBIO DE SWITCH
     // ─────────────────────────────────────────────────────────
 
-    /**
-     * Evalúa si el cambio de un switch es permitido y actúa:
-     *
-     * ACTIVAR  → siempre permitido, persiste inmediatamente.
-     * DESACTIVAR:
-     *   - Si es el único activo → rechazar con AlertDialog de error.
-     *   - Si hay otro activo   → pedir confirmación con AlertDialog.
-     *
-     * @param nombre       Nombre legible del método (para mensajes).
-     * @param clave        Clave en SharedPreferences.
-     * @param nuevoEstado  true = activar, false = desactivar.
-     * @param revertir     Lambda que revierte el switch si se cancela.
-     */
     private fun manejarCambioSwitch(
         nombre: String,
         clave: String,
@@ -154,23 +119,18 @@ class MetodosPagoActivity : AppCompatActivity() {
         revertir: () -> Unit
     ) {
         if (nuevoEstado) {
-            // ACTIVAR — siempre permitido, sin confirmación
             guardarEstado()
             return
         }
 
-        // DESACTIVAR — verificar si es el único activo
         if (contarMetodosActivos() <= 1) {
-            // Regla 3: no se puede desactivar el último activo
             revertir()
             mostrarDialogUnicoActivo()
             return
         }
 
-        // Hay otros activos — pedir confirmación (Regla 1)
-        revertir() // Revertir visualmente mientras el usuario decide
+        revertir()
         mostrarDialogConfirmacionDesactivar(nombre) {
-            // Confirmado: aplicar el cambio real
             cargandoEstado = true
             when (clave) {
                 KEY_EFECTIVO      -> binding.switchEfectivo.isChecked      = false
@@ -182,10 +142,6 @@ class MetodosPagoActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Cuenta cuántos switches están actualmente en estado ON.
-     * Se usa para la regla "mínimo 1 activo".
-     */
     private fun contarMetodosActivos(): Int {
         var count = 0
         if (binding.switchEfectivo.isChecked)      count++
@@ -198,10 +154,6 @@ class MetodosPagoActivity : AppCompatActivity() {
     // ALERTDIALOGS
     // ─────────────────────────────────────────────────────────
 
-    /**
-     * AlertDialog de confirmación al desactivar un método.
-     * Regla 2: "¿Estás seguro que deseas desactivar este método de pago?"
-     */
     private fun mostrarDialogConfirmacionDesactivar(
         nombre: String,
         onConfirmado: () -> Unit
@@ -213,18 +165,11 @@ class MetodosPagoActivity : AppCompatActivity() {
                 onConfirmado()
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-                // El switch ya fue revertido antes de mostrar este dialog
-            }
+            .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
             .show()
     }
 
-    /**
-     * AlertDialog de rechazo cuando se intenta desactivar el único activo.
-     * Regla 3: "¡Debe haber por lo menos 1 método de pago activo!"
-     */
     private fun mostrarDialogUnicoActivo() {
         AlertDialog.Builder(this)
             .setTitle("Acción no permitida")

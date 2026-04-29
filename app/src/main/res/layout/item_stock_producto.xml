@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_stock_producto.xml — Fila en GestionStockActivity
+    Solo permite ingresar cantidad positiva para AGREGAR stock.
+    No hay boton de reducir — la regla es exclusivamente aditiva en este flujo.
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/screenContentPadding"
+    android:layout_marginEnd="@dimen/screenContentPadding"
+    android:layout_marginBottom="@dimen/spacing8"
+    app:cardCornerRadius="@dimen/cardCornerRadius"
+    app:cardElevation="@dimen/cardElevation"
+    app:cardBackgroundColor="@color/colorSurface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/cardContentPadding"
+        android:gravity="center_vertical">
+
+        <!-- Info del producto -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombreStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeBody"
+                android:textColor="@color/colorOnBackground"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCategoriaStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeCaption"
+                android:textColor="@color/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/tvStockActual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:textSize="@dimen/textSizeCaption"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Cantidad a agregar -->
+        <EditText
+            android:id="@+id/etCantidadAgregar"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing8"
+            android:inputType="number"
+            android:hint="0"
+            android:gravity="center"
+            android:textSize="@dimen/textSizeBody"
+            android:textColor="@color/colorOnBackground"
+            android:backgroundTint="@color/colorPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAgregarStock"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing8"
+            android:text="+"
+            android:minWidth="0dp"
+            android:paddingStart="@dimen/spacing12"
+            android:paddingEnd="@dimen/spacing12" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

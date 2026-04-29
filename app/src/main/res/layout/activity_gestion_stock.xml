@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_gestion_stock.xml — Agregar Stock a Productos (M1, CU-10)
+    Regla critica: solo permite incremento manual de stock.
+    La reduccion ocurre unicamente via ventas (M2) o mermas (M2 CU-04).
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/colorOnPrimary"
+        app:title="Agregar Stock"
+        app:titleTextColor="@color/colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/tvSinProductos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No hay productos en el catálogo."
+        android:textSize="@dimen/textSizeBody"
+        android:textColor="@color/colorOnSurface"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/spacing8"
+        android:paddingBottom="@dimen/spacing8" />
+
+</LinearLayout>

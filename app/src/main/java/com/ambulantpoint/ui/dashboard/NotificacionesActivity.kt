@@ -1,20 +1,20 @@
-package com.ambulantpoint
+package com.ambulantpoint.ui.dashboard
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ambulantpoint.databinding.ActivityIniciarVentaBinding
+import com.ambulantpoint.databinding.ActivityNotificacionesBinding
 
 /**
- * IniciarVentaActivity — Esqueleto navegable.
+ * NotificacionesActivity — Esqueleto navegable.
  * La lógica de negocio se implementa en la fase de desarrollo del módulo correspondiente.
  */
-class IniciarVentaActivity : AppCompatActivity() {
+class NotificacionesActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityIniciarVentaBinding
+    private lateinit var binding: ActivityNotificacionesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityIniciarVentaBinding.inflate(layoutInflater)
+        binding = ActivityNotificacionesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_jornada_historial.xml — Fila de jornada en el historial (CU-11 / RF-19)
+    Muestra: fecha de inicio, número de ventas y total recaudado.
+    Toque → abre el reporte de detalle de esa jornada.
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/screenContentPadding"
+    android:layout_marginVertical="@dimen/spacing4"
+    app:cardCornerRadius="@dimen/cardCornerRadius"
+    app:cardElevation="@dimen/cardElevation"
+    app:cardBackgroundColor="@color/colorSurface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/cardContentPadding"
+        android:gravity="center_vertical">
+
+        <!-- ── Fecha y resumen ────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFechaJornada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeSectionTitle"
+                android:textColor="@color/colorOnBackground"
+                android:textStyle="bold"
+                android:text="2026-04-28" />
+
+            <TextView
+                android:id="@+id/tvResumenVentasJornada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:textSize="@dimen/textSizeCaption"
+                android:textColor="@color/colorOnSurface"
+                android:text="0 venta(s)" />
+
+        </LinearLayout>
+
+        <!-- ── Total recaudado ───────────────────────────── -->
+        <TextView
+            android:id="@+id/tvTotalJornada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSizeSectionTitle"
+            android:textColor="@color/colorSecondary"
+            android:textStyle="bold"
+            android:paddingStart="@dimen/spacing12"
+            android:text="$0.00" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

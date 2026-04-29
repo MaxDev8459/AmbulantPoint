@@ -62,3 +62,6 @@ gen/
 # Environment
 .env
 .env.local
+
+# Claude Code (usuario-especifico)
+.claude/

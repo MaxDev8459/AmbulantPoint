@@ -1,50 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_reporte.xml — M3: Cierre y Conciliación (CU-05, CU-06) + Historial (CU-11)
+    Dos vistas intercambiables:
+      scrollDetalle → reporte de una jornada específica
+      llHistorial   → lista de todas las jornadas cerradas
+-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackground"
-    tools:context=".ReporteActivity">
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarHeight"
         android:background="@color/colorBtnReporte"
+        android:elevation="4dp"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="@color/colorOnPrimary"
-        app:title="Generar Reporte"
-        app:titleTextColor="@color/colorOnPrimary"
-        android:elevation="4dp" />
+        app:title="Reporte de Jornada"
+        app:titleTextColor="@color/colorOnPrimary" />
 
-    <LinearLayout
+    <!-- ══ VISTA DETALLE (gone por defecto, visible tras cerrar jornada) ══ -->
+    <ScrollView
+        android:id="@+id/scrollDetalle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/screenContentPadding">
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerHistorial"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12"
+                android:text="Ver Historial" />
+
+            <!-- ── Card: Jornada ──────────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
+                app:cardElevation="@dimen/cardElevation"
+                app:cardBackgroundColor="@color/colorSurface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/cardContentPadding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="JORNADA"
+                        android:textSize="@dimen/textSizeCaption"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="@dimen/spacing8" />
+
+                    <TextView
+                        android:id="@+id/tvFechaInicio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                    <TextView
+                        android:id="@+id/tvFechaCierre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing4"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                    <TextView
+                        android:id="@+id/tvFondoInicial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing4"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnSurface" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Card: Ventas ───────────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
+                app:cardElevation="@dimen/cardElevation"
+                app:cardBackgroundColor="@color/colorSurface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/cardContentPadding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="VENTAS"
+                        android:textSize="@dimen/textSizeCaption"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="@dimen/spacing8" />
+
+                    <TextView
+                        android:id="@+id/tvTotalVentas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSizeSectionTitle"
+                        android:textColor="@color/colorOnBackground"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCantidadVentas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing4"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/spacing8"
+                        android:layout_marginBottom="@dimen/spacing8"
+                        android:background="@color/colorOnSurface"
+                        android:alpha="0.2" />
+
+                    <TextView
+                        android:id="@+id/tvEfectivoVentas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                    <TextView
+                        android:id="@+id/tvTarjetaVentas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing4"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                    <TextView
+                        android:id="@+id/tvTransferenciaVentas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing4"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Card: Conciliación ─────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
+                app:cardElevation="@dimen/cardElevation"
+                app:cardBackgroundColor="@color/colorSurface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/cardContentPadding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CONCILIACIÓN DE CAJA"
+                        android:textSize="@dimen/textSizeCaption"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="@dimen/spacing8" />
+
+                    <TextView
+                        android:id="@+id/tvEfectivoEsperado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                    <TextView
+                        android:id="@+id/tvEfectivoReal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing4"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                    <TextView
+                        android:id="@+id/tvDiscrepancia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing8"
+                        android:textSize="@dimen/textSizeSectionTitle"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnBackground" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Card: Mermas ───────────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing12"
+                app:cardCornerRadius="@dimen/cardCornerRadius"
+                app:cardElevation="@dimen/cardElevation"
+                app:cardBackgroundColor="@color/colorSurface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/cardContentPadding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MERMAS"
+                        android:textSize="@dimen/textSizeCaption"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="@dimen/spacing8" />
+
+                    <TextView
+                        android:id="@+id/tvTotalMermas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSizeBody"
+                        android:textColor="@color/colorOnBackground" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ══ VISTA HISTORIAL (visible por defecto) ══════════════ -->
+    <LinearLayout
+        android:id="@+id/llHistorial"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="M3 — Cierre y Conciliación"
-            android:textSize="@dimen/textSizeSectionTitle"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing12"
-            android:text="Historial de jornadas, filtro por fecha y desglose de ventas.\nSe implementa en la fase de desarrollo de M3."
+            android:id="@+id/tvSinJornadas"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="No hay jornadas cerradas aún."
             android:textSize="@dimen/textSizeBody"
             android:textColor="@color/colorOnSurface"
-            android:gravity="center" />
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/spacing8"
+            android:paddingBottom="@dimen/spacing8" />
 
     </LinearLayout>
 

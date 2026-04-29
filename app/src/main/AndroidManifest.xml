@@ -74,6 +74,24 @@
         </activity>
 
         <!--
+            GestionStockActivity — Agregar stock manualmente a productos.
+            Regla: solo incremento. Reduccion ocurre via ventas/mermas (M2).
+            RF asociado: RF-18 | CU asociado: CU-10
+        -->
+        <activity
+            android:name=".ui.catalogo.GestionStockActivity"
+            android:exported="false"
+            android:label="Agregar Stock"
+            android:parentActivityName=".ui.catalogo.GestionProductosActivity"
+            android:windowSoftInputMode="adjustResize">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.catalogo.GestionProductosActivity" />
+
+        </activity>
+
+        <!--
             ProductoFormActivity — Crear / editar producto.
             RF asociado: RF-02, RF-18 | CU asociado: CU-10
             Modos: CREACIÓN (sin extra) / EDICIÓN (con EXTRA_PRODUCTO_ID)
@@ -101,7 +119,7 @@
             Lógica completa se implementa en fase de desarrollo M2.
         -->
         <activity
-            android:name=".IniciarVentaActivity"
+            android:name=".ui.venta.IniciarVentaActivity"
             android:exported="false"
             android:label="Iniciar Venta del Día"
             android:parentActivityName=".MainActivity"
@@ -110,6 +128,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+
+        </activity>
+
+        <!--
+            VentaActivity — Slash Filter + registro de ventas + mermas.
+            RF asociado: RF-05, RF-06, RF-07, RF-08, RF-09 | CU asociado: CU-02, CU-04
+            Recibe EXTRA_JORNADA_ID (Long) desde IniciarVentaActivity.
+        -->
+        <activity
+            android:name=".ui.venta.VentaActivity"
+            android:exported="false"
+            android:label="Venta del Día"
+            android:parentActivityName=".ui.venta.IniciarVentaActivity"
+            android:windowSoftInputMode="stateHidden">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.venta.IniciarVentaActivity" />
 
         </activity>
 
@@ -123,7 +159,7 @@
             Lógica completa se implementa en fase de desarrollo M3.
         -->
         <activity
-            android:name=".ReporteActivity"
+            android:name=".ui.conciliacion.ReporteActivity"
             android:exported="false"
             android:label="Generar Reporte"
             android:parentActivityName=".MainActivity">
@@ -144,7 +180,7 @@
             Lógica completa se implementa en fase de desarrollo M4.
         -->
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ui.dashboard.DashboardActivity"
             android:exported="false"
             android:label="Dashboard"
             android:parentActivityName=".MainActivity">
@@ -161,7 +197,7 @@
             Lógica completa se implementa en fase de desarrollo M4.
         -->
         <activity
-            android:name=".NotificacionesActivity"
+            android:name=".ui.dashboard.NotificacionesActivity"
             android:exported="false"
             android:label="Notificaciones y Predicciones"
             android:parentActivityName=".MainActivity">
@@ -182,7 +218,7 @@
             Persistencia: SharedPreferences (no requiere M2/M3/M4).
         -->
         <activity
-            android:name=".MetodosPagoActivity"
+            android:name=".ui.venta.MetodosPagoActivity"
             android:exported="false"
             android:label="Métodos de Pago"
             android:parentActivityName=".MainActivity"

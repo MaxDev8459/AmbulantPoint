@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_iniciar_venta.xml — CU-01: Cargar Venta Diaria
+    Módulo: M2 | RF: RF-01, RF-02, RF-03, RF-04
+
+    Estructura:
+    - Toolbar "Iniciar Venta del Día"
+    - EditText fondo de caja inicial
+    - RecyclerView con productos seleccionables (cantidad 0..stockGeneral)
+    - Botón "Iniciar Jornada del Día"
+    - Estado vacío si no hay productos con stock
+-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackground"
-    tools:context=".IniciarVentaActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.venta.IniciarVentaActivity">
 
+    <!-- ── Toolbar ────────────────────────────────────────────── -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,32 +34,98 @@
         app:titleTextColor="@color/colorOnPrimary"
         android:elevation="4dp" />
 
+    <!-- ── Sección: Fondo de caja ─────────────────────────────── -->
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/screenContentPadding"
+        android:gravity="center_vertical"
+        android:background="@color/colorSurface">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fondo de caja inicial ($):"
+            android:textSize="@dimen/textSizeBody"
+            android:textColor="@color/colorOnBackground"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etFondoCaja"
+            android:layout_width="120dp"
+            android:layout_height="48dp"
+            android:inputType="numberDecimal"
+            android:hint="0.00"
+            android:textSize="@dimen/textSizeBody"
+            android:textColor="@color/colorOnBackground"
+            android:textColorHint="@color/colorHint"
+            android:textAlignment="textEnd"
+            android:padding="@dimen/spacing8"
+            android:background="@color/colorBackground" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dividerHeight"
+        android:background="@color/colorDivider" />
+
+    <!-- ── Título sección productos ───────────────────────────── -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/screenContentPadding"
+        android:paddingTop="@dimen/spacing12"
+        android:paddingBottom="@dimen/spacing8"
+        android:text="Selecciona los productos a cargar hoy:"
+        android:textSize="@dimen/textSizeBody"
+        android:textColor="@color/colorOnSurface"
+        android:textStyle="bold" />
+
+    <!-- ── Estado vacío ───────────────────────────────────────── -->
+    <TextView
+        android:id="@+id/tvSinStock"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/screenContentPadding">
+        android:padding="@dimen/screenContentPadding"
+        android:text="No hay productos con stock disponible.\nAgrega stock desde Gestión de Catálogo."
+        android:textSize="@dimen/textSizeBody"
+        android:textColor="@color/colorOnSurface"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="M2 — Operación de Venta Diaria"
-            android:textSize="@dimen/textSizeSectionTitle"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:gravity="center" />
+    <!-- ── Lista de productos con selector de cantidad ─────────── -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProductosCarga"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="@dimen/spacing8"
+        android:clipToPadding="false"
+        android:visibility="gone"
+        tools:listitem="@layout/item_producto_carga"
+        tools:visibility="visible" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing12"
-            android:text="Carga diaria, Slash Filter y registro de ventas.\nSe implementa en la fase de desarrollo de M2."
-            android:textSize="@dimen/textSizeBody"
-            android:textColor="@color/colorOnSurface"
-            android:gravity="center" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dividerHeight"
+        android:background="@color/colorDivider" />
 
-    </LinearLayout>
+    <!-- ── Botón iniciar jornada ──────────────────────────────── -->
+    <Button
+        android:id="@+id/btnIniciarJornada"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/buttonMinHeight"
+        android:layout_margin="@dimen/screenContentPadding"
+        android:text="Iniciar Jornada del Día"
+        android:textSize="@dimen/textSizeButton"
+        android:textColor="@color/colorOnPrimary"
+        android:backgroundTint="@color/colorBtnIniciarVenta"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </LinearLayout>

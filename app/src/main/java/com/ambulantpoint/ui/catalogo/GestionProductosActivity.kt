@@ -2,6 +2,8 @@ package com.ambulantpoint.ui.catalogo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -77,6 +79,24 @@ class GestionProductosActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_gestion_productos, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_gestionar_stock) {
+            startActivity(Intent(this, GestionStockActivity::class.java))
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        cargarProductos()
+    }
+
     private fun configurarRecycler() {
         adapter = ProductoAdapter(
             onEditar   = { producto -> abrirEdicion(producto) },
@@ -101,12 +121,7 @@ class GestionProductosActivity : AppCompatActivity() {
     // CARGA DE DATOS
     // ─────────────────────────────────────────────────────────
 
-    /**
-     * Consulta todos los productos activos (con o sin stock)
-     * y actualiza el adapter. Muestra estado vacío si no hay ninguno.
-     */
     private fun cargarProductos() {
-        // findAll(soloActivos=true) → activo=true, sin filtrar por stock
         val productos = catalogService.getProductosTodosActivos()
 
         adapter.actualizar(productos)
@@ -127,10 +142,6 @@ class GestionProductosActivity : AppCompatActivity() {
         formLauncher.launch(intent)
     }
 
-    /**
-     * AlertDialog de confirmación antes de eliminar.
-     * CatalogService decide internamente soft vs hard delete.
-     */
     private fun confirmarEliminacion(producto: Producto) {
         AlertDialog.Builder(this)
             .setTitle("Eliminar producto")
@@ -156,11 +167,6 @@ class GestionProductosActivity : AppCompatActivity() {
     // ADAPTER
     // ─────────────────────────────────────────────────────────
 
-    /**
-     * Adapter para la lista de productos.
-     * Cada ítem muestra nombre, categoría, precio y stock.
-     * La categoría se obtiene del CatalogService para mostrar el nombre.
-     */
     inner class ProductoAdapter(
         private val onEditar: (Producto) -> Unit,
         private val onEliminar: (Producto) -> Unit
@@ -193,11 +199,9 @@ class GestionProductosActivity : AppCompatActivity() {
                 b.tvPrecioProducto.text = "$%.2f".format(producto.precioVenta)
                 b.tvStockProducto.text  = "Stock: ${producto.stockGeneral}"
 
-                // Nombre de categoría
                 val categoria = catalogService.getCategoria(producto.categoriaId.toInt())
                 b.tvCategoriaProducto.text = categoria?.nombre ?: "Sin categoría"
 
-                // Color del stock: rojo si es 0, normal si tiene unidades
                 b.tvStockProducto.setTextColor(
                     if (producto.stockGeneral == 0)
                         getColor(R.color.colorWarning)
@@ -205,10 +209,7 @@ class GestionProductosActivity : AppCompatActivity() {
                         getColor(R.color.colorOnSurface)
                 )
 
-                // Tocar la card → editar
                 b.root.setOnClickListener { onEditar(producto) }
-
-                // Tocar papelera → eliminar
                 b.btnEliminarProducto.setOnClickListener { onEliminar(producto) }
             }
         }

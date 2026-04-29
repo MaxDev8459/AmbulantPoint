@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_venta.xml — CU-02: Filtrar y Realizar Venta + CU-04: Registrar Merma
+    Módulo: M2 | RF: RF-05, RF-06, RF-07, RF-08, RF-09
+
+    Estructura:
+    - Toolbar con menú (acción "Registrar Merma")
+    - Slash Filter: HorizontalScrollView con botones de categoría
+    - RecyclerView de productos filtrados por categoría seleccionada
+    - Estado vacío cuando todo está vendido/mermado
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.venta.VentaActivity">
+
+    <!-- ── Toolbar con menú ────────────────────────────────────── -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/colorBtnIniciarVenta"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/colorOnPrimary"
+        app:title="Venta del Día"
+        app:titleTextColor="@color/colorOnPrimary"
+        android:elevation="4dp" />
+
+    <!-- ── Total de venta acumulado del día ─────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorSurface"
+        android:paddingStart="@dimen/screenContentPadding"
+        android:paddingEnd="@dimen/screenContentPadding"
+        android:paddingTop="@dimen/spacing8"
+        android:paddingBottom="@dimen/spacing8"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOTAL DEL DÍA"
+                android:textSize="@dimen/textSizeCaption"
+                android:textColor="@color/colorOnSurface"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+
+            <TextView
+                android:id="@+id/tvTotalVentaDia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0.00"
+                android:textSize="32sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dividerHeight"
+        android:background="@color/colorDivider" />
+
+    <!-- ── Slash Filter ────────────────────────────────────────── -->
+    <HorizontalScrollView
+        android:id="@+id/scrollSlashFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
+        android:scrollbars="none"
+        android:paddingTop="@dimen/spacing8"
+        android:paddingBottom="@dimen/spacing8">
+
+        <LinearLayout
+            android:id="@+id/llSlashFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/screenContentPadding"
+            android:paddingEnd="@dimen/screenContentPadding"
+            android:gravity="center_vertical" />
+
+    </HorizontalScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dividerHeight"
+        android:background="@color/colorDivider" />
+
+    <!-- ── Estado vacío — todo vendido/mermado ────────────────── -->
+    <TextView
+        android:id="@+id/tvSinStockDiario"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="@dimen/screenContentPadding"
+        android:text="Sin stock disponible en esta categoría."
+        android:textSize="@dimen/textSizeBody"
+        android:textColor="@color/colorOnSurface"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
+    <!-- ── Lista de productos disponibles para venta ───────────── -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProductosVenta"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/spacing8"
+        android:paddingBottom="@dimen/spacing8"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_producto_venta" />
+
+</LinearLayout>

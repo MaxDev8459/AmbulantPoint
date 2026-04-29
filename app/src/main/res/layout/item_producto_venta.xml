@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_producto_venta.xml — Tarjeta de producto en la pantalla de venta (CU-02)
+    Toque → abre diálogo de venta.
+    Muestra: nombre, precio y unidades disponibles en la carga diaria.
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/screenContentPadding"
+    android:layout_marginVertical="@dimen/spacing4"
+    app:cardCornerRadius="@dimen/cardCornerRadius"
+    app:cardElevation="@dimen/cardElevation"
+    app:cardBackgroundColor="@color/colorSurface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/cardContentPadding"
+        android:gravity="center_vertical">
+
+        <!-- ── Info ──────────────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombreVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeSectionTitle"
+                android:textColor="@color/colorOnBackground"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="Nombre del producto" />
+
+            <TextView
+                android:id="@+id/tvPrecioVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:textSize="@dimen/textSizeBody"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold"
+                android:text="$0.00" />
+
+        </LinearLayout>
+
+        <!-- ── Stock diario ──────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingStart="@dimen/spacing12">
+
+            <TextView
+                android:id="@+id/tvStockDiarioVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeSectionTitle"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeCaption"
+                android:textColor="@color/colorOnSurface"
+                android:gravity="center"
+                android:text="uds." />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

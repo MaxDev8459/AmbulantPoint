@@ -5,6 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ambulantpoint.databinding.ActivityMainBinding
 import com.ambulantpoint.ui.catalogo.GestionProductosActivity
+import com.ambulantpoint.ui.conciliacion.ReporteActivity
+import com.ambulantpoint.ui.dashboard.DashboardActivity
+import com.ambulantpoint.ui.dashboard.NotificacionesActivity
+import com.ambulantpoint.ui.venta.IniciarVentaActivity
+import com.ambulantpoint.ui.venta.MetodosPagoActivity
 
 /**
  * MainActivity — Pantalla de bienvenida y menú principal.
